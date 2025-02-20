@@ -34,6 +34,7 @@ class CustomSearchBar extends StatelessWidget {
                 onChanged: onChanged,
                 controller: controller,
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomImageView(

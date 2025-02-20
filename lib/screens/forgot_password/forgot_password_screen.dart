@@ -79,7 +79,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
@@ -113,7 +113,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       ),
                       color: model.isEmail
                           ? AppColor.kPrimaryColor
-                          : AppColor.kWhiteColor,
+                          : Colors.transparent,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -142,7 +142,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         bottomRight: Radius.circular(10),
                       ),
                       color: model.isEmail
-                          ? AppColor.kWhiteColor
+                          ? Colors.transparent
                           : AppColor.kPrimaryColor,
                     ),
                     child: Padding(

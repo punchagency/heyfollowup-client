@@ -17,7 +17,7 @@ class CustomDialogs {
       useSafeArea: true,
       isScrollControlled: isScrollControlled,
       constraints: const BoxConstraints(minWidth: double.infinity),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       barrierColor: barrierColor,
       context: context,
       builder: (context) {
