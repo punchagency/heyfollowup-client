@@ -163,7 +163,8 @@ class CustomTextFormField extends StatelessWidget {
         suffixIconConstraints: suffixConstraints,
         isDense: true,
         contentPadding: contentPadding ?? EdgeInsets.all(14),
-        fillColor: fillColor ?? ((enabled ?? true) ? Colors.transparent : AppColor.kDisabledColor),
+        fillColor: fillColor ?? ((enabled ?? true) ? Colors.transparent : null),
+        // fillColor: fillColor ?? ((enabled ?? true) ? Colors.transparent : AppColor.kDisabledColor),
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(
@@ -184,11 +185,11 @@ class CustomTextFormField extends StatelessWidget {
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ))
-            .copyWith(
-          borderSide: BorderSide(
-            color: AppColor.kBlack,
-            width: 1,
-          ),
-        ),
+        //     .copyWith(
+        //   borderSide: BorderSide(
+        //     // color: AppColor.kBlack,
+        //     width: 1,
+        //   ),
+        // ),
       );
 }

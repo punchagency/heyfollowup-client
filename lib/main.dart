@@ -42,28 +42,10 @@ class _MyAppState extends State<MyApp> {
         title: 'Hey FollowUp',
         navigatorKey: NavigationServices.navigatorKey,
         theme: AppTheme.appTheme(),
+        darkTheme: AppTheme.darkTheme(),
+        themeMode: ThemeMode.system,
         home: const SplashScreen(),
       ),
     );
-    // return MultiProvider(
-    //     providers: const [
-    //
-    //     ],
-    //     child: DismissKeyboard(
-    //       child: MaterialApp(
-    //         supportedLocales: const [
-    //           Locale('en'),
-    //           Locale('fr'),
-    //         ],
-    //         localizationsDelegates: const [
-    //
-    //         ],
-    //         debugShowCheckedModeBanner: false,
-    //         title: 'Hey FollowUp',
-    //         navigatorKey: NavigationServices.navigatorKey,
-    //         theme: AppTheme.light(),
-    //         home: const SplashScreen(),
-    //       ),
-    //     ));
   }
 }

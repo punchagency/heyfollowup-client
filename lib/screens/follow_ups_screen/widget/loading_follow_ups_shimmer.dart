@@ -22,8 +22,8 @@ class LoadingFollowUpsShimmer extends StatelessWidget {
           return ShimmerSingleUserWidget();
         },
       ),
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor: Theme.of(context).splashColor,
+      highlightColor: Theme.of(context).splashColor.withOpacity(0.5),
     ));
   }
 }
