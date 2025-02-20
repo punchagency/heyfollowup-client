@@ -2,8 +2,13 @@ import 'package:camera/camera.dart';
 import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
+import 'package:hey_follow_up/screens/create_follow_up/model/next_step_model.dart';
+import 'package:hey_follow_up/screens/create_follow_up/widget/next_step_list_widget.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
 import 'package:hey_follow_up/util/image_constant.dart';
+import 'package:hey_follow_up/util/styles/custom_button_style.dart';
+import 'package:hey_follow_up/widget/custom_dialogs.dart';
+import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_image_view.dart';
 
 import '../../widget/custom_phone_number.dart';
@@ -104,7 +109,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      _buildNextSteps(model),
+                      _buildNextSteps(model, context),
                       const SizedBox(
                         height: 10,
                       ),
@@ -112,7 +117,14 @@ class CreateFollowUpScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      _buildPhoneNumber(model)
+                      _buildPhoneNumber(model),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomElevatedButton(
+                        text: 'Submit',
+                        buttonStyle: CustomButtonStyles.fillPrimary,
+                      )
                     ],
                   ),
                 ),
@@ -308,7 +320,7 @@ class CreateFollowUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNextSteps(CreateFollowUpVM model) {
+  Widget _buildNextSteps(CreateFollowUpVM model, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -324,28 +336,67 @@ class CreateFollowUpScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColor.kFormBorderColor,
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-                child: Row(
-                  children: [
-                    Expanded(child: Text('Select An Option')),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: AppColor.kFormBorderColor,
-                    )
-                  ],
+              InkWell(
+                onTap: () {
+                  CustomDialogs.showCustomModalBottomSheet(
+                    context,
+                    NextStepListWidget<NextStepModel>(
+                        onItemSelected: (NextStepModel item) {
+                          model.addNextStepItem(item);
+                        },
+                        list: model.nextSteps),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColor.kFormBorderColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text('Select An Option')),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: AppColor.kFormBorderColor,
+                      )
+                    ],
+                  ),
                 ),
               ),
+              if (model.selectedNextSteps.isNotEmpty) ...[
+                const SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 2.0,
+                  children: model.selectedNextSteps.map((element) {
+                    return Chip(
+                      side: BorderSide(
+                          color: AppColor.kFormBorderColor.withOpacity(0.3),
+                          width: 0.5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      onDeleted: () {
+                        model.removeNextStepItem(element);
+                      },
+                      deleteIcon: Icon(
+                        Icons.close,
+                      ),
+                      backgroundColor: element.color,
+                      label: Text(element.title),
+                    );
+                  }).toList(),
+                )
+              ]
             ],
           ),
         ),
