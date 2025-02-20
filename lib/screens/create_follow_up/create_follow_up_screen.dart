@@ -1,0 +1,515 @@
+import 'package:camera/camera.dart';
+import 'package:country_pickers/country.dart';
+import 'package:flutter/material.dart';
+import 'package:hey_follow_up/core/view_helper/base_view.dart';
+import 'package:hey_follow_up/util/color_scheme.dart';
+import 'package:hey_follow_up/util/image_constant.dart';
+import 'package:hey_follow_up/widget/custom_image_view.dart';
+
+import '../../widget/custom_phone_number.dart';
+import '../../widget/custom_text_form_field.dart';
+import 'view_model/create_follow_up_vm.dart';
+
+class CreateFollowUpScreen extends StatelessWidget {
+  // CreateFollowUpScreen(this.file);
+
+  // final XFile file;
+
+  static Future<void> show(
+    BuildContext context,
+  ) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => CreateFollowUpScreen(),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseView<CreateFollowUpVM>(builder: (context, model, child) {
+      return Scaffold(
+        body: SafeArea(
+            child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: AppColor.kPrimaryColor,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Create A FollowUp',
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  CustomImageView(
+                    imagePath: ImageConstant.avatarPortrait,
+                    // imagePath: file.path,
+                    width: 50,
+                    height: 50,
+                    radius: BorderRadius.circular(10),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildName(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildDate(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildWhoDidYouMeet(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildEmail(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildWhereDidYouMeet(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildRandomFacts(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildLinkedInProfileUrl(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildNextSteps(model),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildSchedule(model, context),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildPhoneNumber(model)
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        )),
+      );
+    });
+  }
+
+  _buildName(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Name'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomTextFormField(
+          hintText: "Enter name",
+          textInputType: TextInputType.emailAddress,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+        )
+      ],
+    );
+  }
+
+  _buildDate(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Date'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomTextFormField(
+          suffix: Icon(
+            Icons.calendar_month_rounded,
+            color: AppColor.kPrimaryColor,
+          ),
+          hintText: "Enter date",
+          textInputType: TextInputType.emailAddress,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+        )
+      ],
+    );
+  }
+
+  _buildWhoDidYouMeet(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Who Did You Meet?'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomTextFormField(
+          hintText: "Name",
+          textInputType: TextInputType.emailAddress,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+        )
+      ],
+    );
+  }
+
+  _buildEmail(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Email'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomTextFormField(
+          hintText: "enter email",
+          textInputType: TextInputType.emailAddress,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+        )
+      ],
+    );
+  }
+
+  _buildWhereDidYouMeet(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Where did you meet?'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomTextFormField(
+          hintText: "Enter location",
+          textInputType: TextInputType.emailAddress,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+        )
+      ],
+    );
+  }
+
+  _buildRandomFacts(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Random Facts (Copy and paste their info or socials) *'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomTextFormField(
+          hintText: "Enter facts",
+          textInputType: TextInputType.emailAddress,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+        )
+      ],
+    );
+  }
+
+  Widget _buildLinkedInProfileUrl(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('LinkedIn Profile URL'),
+        const SizedBox(
+          height: 5,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: CustomTextFormField(
+                hintText: "www.linkedin.com",
+                textInputType: TextInputType.emailAddress,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                borderDecoration:
+                    TextFormFieldStyleHelper.outlinePrimaryContainer,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColor.kFormBorderColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                child: Row(
+                  children: [
+                    Expanded(child: Text('Scan QR Code')),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.qr_code,
+                      color: AppColor.kPrimaryColor,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _buildNextSteps(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Next Steps?'),
+        const SizedBox(
+          height: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColor.kFormBorderColor,
+              ),
+              borderRadius: BorderRadius.circular(10)),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColor.kFormBorderColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                child: Row(
+                  children: [
+                    Expanded(child: Text('Select An Option')),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColor.kFormBorderColor,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSchedule(CreateFollowUpVM model, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Schedule'),
+        const SizedBox(
+          height: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColor.kFormBorderColor,
+              ),
+              borderRadius: BorderRadius.circular(10)),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        model.toggleFollowUp(true);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: model.isFollowUpNow
+                                ? AppColor.kDisabledColor
+                                : Colors.transparent,
+                            border: Border.all(
+                              color: AppColor.kFormBorderColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 13),
+                        child: Text('Follow Up Now'),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        model.toggleFollowUp(false);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: !model.isFollowUpNow
+                                ? AppColor.kDisabledColor
+                                : Colors.transparent,
+                            border: Border.all(
+                              color: AppColor.kFormBorderColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 13),
+                        child: Text('Follow Up Later'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              if (!model.isFollowUpNow) ...[
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColor.kDisabledColor,
+                    border: Border.all(
+                      color: AppColor.kFormBorderColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Select days for follow up'),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 40,
+                        child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  model.selectFollowUpLaterDays(index);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: model.daysLater == index
+                                        ? AppColor.kPrimaryColor
+                                        : null,
+                                    border: Border.all(
+                                      color: model.daysLater == index
+                                          ? Colors.transparent
+                                          : AppColor.kFormBorderColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 10,
+                                  ),
+                                  child: Text(
+                                    '${index + 1}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(
+                                            color: model.daysLater == index
+                                                ? Colors.white
+                                                : null),
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, int) {
+                              return SizedBox(
+                                width: 5,
+                              );
+                            },
+                            itemCount: 10),
+                      )
+                    ],
+                  ),
+                ),
+              ]
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _buildPhoneNumber(CreateFollowUpVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Phone Number'),
+        const SizedBox(
+          height: 5,
+        ),
+        CustomPhoneNumber(
+          controller: model.phoneNumberController,
+          country: model.selectedCountry,
+          onTap: (Country country) {
+            model.updateCountry(country);
+          },
+        )
+      ],
+    );
+  }
+}
