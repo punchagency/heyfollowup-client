@@ -114,4 +114,12 @@ class AppColor {
   static const kLightBlack = Color(0xff3a3a3a);
   static const kGold = Color(0xffbb8a11);
   static const kBlack = Color(0xFF000000);
+
+  //next step colors
+  static const nextStepIgnore = Color(0xffEBFFF3);
+  static const nextStepConnectSomeone = Color(0xffEAF2FF);
+  static const nextStepCatchUp = Color(0xffF1E3FF);
+  static const nextStepScheduleFollowUp = Color(0xffFEFFED);
+  static const nextStepSendThemInfo = Color(0xffFFEAEA);
+
 }
