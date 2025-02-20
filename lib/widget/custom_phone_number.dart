@@ -67,6 +67,7 @@ class CustomPhoneNumber extends StatelessWidget {
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                 counterText: '',
                 hintText: 'phone',
                 contentPadding: EdgeInsets.symmetric(

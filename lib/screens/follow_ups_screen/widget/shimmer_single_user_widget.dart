@@ -21,7 +21,7 @@ class ShimmerSingleUserWidget extends StatelessWidget {
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                 ),
-                color: Colors.grey[300],
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
               width: double.infinity,
               height: 120,
@@ -39,7 +39,7 @@ class ShimmerSingleUserWidget extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey[300],
+                          color: Theme.of(context).scaffoldBackgroundColor,
                       ),
                       height: 20,
                     ),

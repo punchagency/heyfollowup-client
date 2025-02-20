@@ -392,7 +392,12 @@ class CreateFollowUpScreen extends StatelessWidget {
                         Icons.close,
                       ),
                       backgroundColor: element.color,
-                      label: Text(element.title),
+                      label: Text(
+                        element.title,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
                     );
                   }).toList(),
                 )
@@ -431,7 +436,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             color: model.isFollowUpNow
-                                ? AppColor.kDisabledColor
+                                ? Theme.of(context).splashColor
                                 : Colors.transparent,
                             border: Border.all(
                               color: AppColor.kFormBorderColor,
@@ -439,7 +444,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 13),
-                        child: Text('Follow Up Now'),
+                        child: Center(child: Text('Follow Up Now')),
                       ),
                     ),
                   ),
@@ -454,7 +459,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             color: !model.isFollowUpNow
-                                ? AppColor.kDisabledColor
+                                ? Theme.of(context).splashColor
                                 : Colors.transparent,
                             border: Border.all(
                               color: AppColor.kFormBorderColor,
@@ -462,7 +467,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 13),
-                        child: Text('Follow Up Later'),
+                        child: Center(child: Text('Follow Up Later')),
                       ),
                     ),
                   ),
@@ -474,7 +479,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.kDisabledColor,
+                    color: Theme.of(context).splashColor,
                     border: Border.all(
                       color: AppColor.kFormBorderColor,
                     ),
