@@ -511,7 +511,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                                     border: Border.all(
                                       color: model.daysLater == index
                                           ? Colors.transparent
-                                          : AppColor.kFormBorderColor,
+                                          : Theme.of(context).disabledColor,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -534,7 +534,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                             },
                             separatorBuilder: (context, int) {
                               return SizedBox(
-                                width: 5,
+                                width: 8,
                               );
                             },
                             itemCount: 10),
