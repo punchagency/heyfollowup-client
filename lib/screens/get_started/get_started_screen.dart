@@ -67,7 +67,7 @@ class GetStartedScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
@@ -101,7 +101,7 @@ class GetStartedScreen extends StatelessWidget {
                       ),
                       color: model.isLogin
                           ? AppColor.kPrimaryColor
-                          : AppColor.kWhiteColor,
+                          : Colors.transparent,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -130,7 +130,7 @@ class GetStartedScreen extends StatelessWidget {
                         bottomRight: Radius.circular(10),
                       ),
                       color: model.isLogin
-                          ? AppColor.kWhiteColor
+                          ? Colors.transparent
                           : AppColor.kPrimaryColor,
                     ),
                     child: Padding(
