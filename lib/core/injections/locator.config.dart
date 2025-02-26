@@ -19,6 +19,7 @@ import '../../screens/forgot_password/view_model/forgot_password_vm.dart' as _i7
 import '../../screens/home_container_screen/view_model/home_container_vm.dart' as _i8;
 import '../../screens/otp_code/view_model/otp_code_vm.dart' as _i6;
 import '../../screens/profile_screen/view_model/profile_screen_vm.dart' as _i9;
+import '../../screens/reset_password/view_model/reset_password_vm.dart' as _i16;
 import '../../services/auth/auth_service.dart' as _i14;
 import '../../services/auth/pref_utils.dart' as _i15;
 import '../animation/animation_service.dart' as _i3;
@@ -49,6 +50,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i13.FollowUpsVm>(() => _i13.FollowUpsVm());
     gh.lazySingleton<_i14.AuthService>(() => _i14.AuthService());
     gh.lazySingleton<_i15.PrefUtils>(() => _i15.PrefUtils());
+    gh.lazySingleton<_i16.ResetPasswordVm>(() => _i16.ResetPasswordVm());
     return this;
   }
 }

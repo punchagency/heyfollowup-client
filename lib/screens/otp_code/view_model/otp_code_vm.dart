@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
 import 'package:hey_follow_up/screens/get_started/get_started_screen.dart';
+import 'package:hey_follow_up/screens/reset_password/reset_password_screen.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../data/server/api_client.dart';
@@ -62,7 +63,11 @@ class OtpCodeVm extends BaseModel {
     popContext(context);
     if (result.isSuccessful) {
       if (result.responseBody != null) {
-        GetStartedScreen.show(context);
+        if(payload['context'] == 'forgot-password'){
+          ResetPasswordScreen.show(context, payload['email'] ?? '');
+        }else {
+          GetStartedScreen.show(context);
+        }
         CustomDialogs.showPopupDialogs(context, message: 'OTP Verified successfully! Please login.', isSuccess: true);
       }
     } else {

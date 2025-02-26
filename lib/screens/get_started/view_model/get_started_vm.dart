@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import 'package:hey_follow_up/services/auth/auth_service.dart';
 import 'package:hey_follow_up/services/auth/pref_utils.dart';
 import 'package:hey_follow_up/widget/custom_dialogs.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../core/injections/locator.dart';
 
 @lazySingleton

@@ -72,13 +72,13 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        CustomPhoneNumber(
-          controller: model.phoneNumberController,
-          country: model.selectedCountry,
-          onTap: (Country country) {
-            model.updateCountry(country);
-          },
-        )
+        // CustomPhoneNumber(
+        //   controller: model.phoneNumberController,
+        //   country: model.selectedCountry,
+        //   onTap: (Country country) {
+        //     model.updateCountry(country);
+        //   },
+        // )
       ],
     );
   }
