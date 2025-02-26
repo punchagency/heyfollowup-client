@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/screens/get_started/view_model/get_started_vm.dart';
-import 'package:hey_follow_up/screens/otp_code/otp_code_screen.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
 import 'package:hey_follow_up/util/styles/custom_button_style.dart';
 import 'package:hey_follow_up/util/validation_functions.dart';
@@ -38,10 +37,9 @@ class LoginScreen extends StatelessWidget {
               ),
               CustomElevatedButton(
                 onPressed: (){
-                  // if(_formKey.currentState?.validate() ?? false){
-                  //   OtpCodeScreen.show(context);
-                  // }
-                  OtpCodeScreen.show(context);
+                  if(_formKey.currentState?.validate() ?? false){
+                    model.doLogin(context);
+                  }
                 },
                 text: 'Log In',
                 buttonStyle: CustomButtonStyles.fillPrimary,

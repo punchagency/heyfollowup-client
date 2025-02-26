@@ -19,6 +19,8 @@ import '../../screens/forgot_password/view_model/forgot_password_vm.dart' as _i7
 import '../../screens/home_container_screen/view_model/home_container_vm.dart' as _i8;
 import '../../screens/otp_code/view_model/otp_code_vm.dart' as _i6;
 import '../../screens/profile_screen/view_model/profile_screen_vm.dart' as _i9;
+import '../../services/auth/auth_service.dart' as _i14;
+import '../../services/auth/pref_utils.dart' as _i15;
 import '../animation/animation_service.dart' as _i3;
 import '../../screens/splash/view_model/splash_screen_vm.dart' as _i4;
 import '../../screens/get_started/view_model/get_started_vm.dart' as _i5;
@@ -45,6 +47,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i11.CustomCameraVm>(() => _i11.CustomCameraVm());
     gh.lazySingleton<_i12.CreateFollowUpVM>(() => _i12.CreateFollowUpVM());
     gh.lazySingleton<_i13.FollowUpsVm>(() => _i13.FollowUpsVm());
+    gh.lazySingleton<_i14.AuthService>(() => _i14.AuthService());
+    gh.lazySingleton<_i15.PrefUtils>(() => _i15.PrefUtils());
     return this;
   }
 }

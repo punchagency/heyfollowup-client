@@ -32,7 +32,7 @@ class ForgotPasswordEmailScreen extends StatelessWidget {
                   // if(_formKey.currentState?.validate() ?? false){
                   //   OtpCodeScreen.show(context);
                   // }
-                  OtpCodeScreen.show(context);
+                  OtpCodeScreen.show(context, {});
                 },
                 text: 'Continue',
                 buttonStyle: CustomButtonStyles.fillPrimary,

@@ -6,6 +6,7 @@ import 'package:hey_follow_up/util/color_scheme.dart';
 import 'package:hey_follow_up/util/image_constant.dart';
 
 import '../../core/view_helper/base_view.dart';
+import '../create_follow_up/create_follow_up_screen.dart';
 import '../follow_ups_screen/follow_ups_screen.dart';
 import '../profile_screen/profile_screen.dart';
 
@@ -42,7 +43,8 @@ class HomeContainerScreen extends StatelessWidget {
           unselectedItemColor: AppColor.kGreyColor,
           onTap: (int index) {
             if (index == 1) {
-              CustomCameraScreen.show(context);
+              CreateFollowUpScreen.show(context);
+              // CustomCameraScreen.show(context);
               return;
             }
             model.updatePage(index);
