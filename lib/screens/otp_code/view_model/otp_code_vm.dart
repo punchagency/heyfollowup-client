@@ -1,7 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
+import 'package:hey_follow_up/screens/get_started/get_started_screen.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../data/server/api_client.dart';
+import '../../../data/server/endpoints.dart';
+import '../../../widget/custom_dialogs.dart';
 
 @lazySingleton
 class OtpCodeVm extends BaseModel {
@@ -12,7 +17,12 @@ class OtpCodeVm extends BaseModel {
 
   Timer? timer;
 
+  void initialize(){
+    pinInputController.clear();
+    waitingTime();
+  }
   void waitingTime() {
+
     if(timer != null){
       timer?.cancel();
       secondsRemaining = 60;
@@ -41,5 +51,26 @@ class OtpCodeVm extends BaseModel {
   void dispose() {
     timer?.cancel();
     super.dispose();
+  }
+
+  void verifyPin(BuildContext context, Map<String, String> payload) async {
+    CustomDialogs.showLoadingBar(context);
+    final result = await ApiClient.initialisePostRequest(
+      url: EndPoints.verifyOTP,
+      data: payload,
+    );
+    popContext(context);
+    if (result.isSuccessful) {
+      if (result.responseBody != null) {
+        GetStartedScreen.show(context);
+        CustomDialogs.showPopupDialogs(context, message: 'OTP Verified successfully! Please login.', isSuccess: true);
+      }
+    } else {
+      CustomDialogs.showPopupDialogs(context, message: result.message);
+    }
+  }
+
+  void popContext(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

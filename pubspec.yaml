@@ -61,6 +61,9 @@ dependency_overrides:
   xml:
   url_launcher: ^6.1.7
   package_info_plus: any
+  flutter_spinkit: ^5.2.1
+  another_flushbar: ^1.12.30
+  shared_preferences: ^2.3.0
 
 flutter_native_splash:
   color: "#f9f3f1"

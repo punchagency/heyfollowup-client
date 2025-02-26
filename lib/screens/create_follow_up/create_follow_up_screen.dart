@@ -1,11 +1,11 @@
-import 'package:camera/camera.dart';
+import 'dart:io';
+
 import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
 import 'package:hey_follow_up/screens/create_follow_up/model/next_step_model.dart';
 import 'package:hey_follow_up/screens/create_follow_up/widget/next_step_list_widget.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
-import 'package:hey_follow_up/util/image_constant.dart';
 import 'package:hey_follow_up/util/styles/custom_button_style.dart';
 import 'package:hey_follow_up/widget/custom_dialogs.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
@@ -13,6 +13,7 @@ import 'package:hey_follow_up/widget/custom_image_view.dart';
 
 import '../../widget/custom_phone_number.dart';
 import '../../widget/custom_text_form_field.dart';
+import '../../widget/media_picker.dart';
 import 'view_model/create_follow_up_vm.dart';
 
 class CreateFollowUpScreen extends StatelessWidget {
@@ -65,12 +66,40 @@ class CreateFollowUpScreen extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  CustomImageView(
-                    imagePath: ImageConstant.avatarPortrait,
-                    // imagePath: file.path,
-                    width: 50,
-                    height: 50,
-                    radius: BorderRadius.circular(10),
+                  InkWell(
+                    onTap: () {
+                      CustomDialogs.showCustomModalBottomSheet(
+                        context,
+                        MediaPicker(
+                          onPicked: (files) {
+                            if (files.isNotEmpty) {
+                              model.addFile(files.first);
+                            }
+                          },
+                          isMultiple: false,
+                        ),
+                      );
+                    },
+                    child: model.file == null
+                        ? Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Theme.of(context).dividerColor),
+                            ),
+                            child: Icon(Icons.image_outlined,
+                                size: 30,
+                                color: Theme.of(context).dividerColor),
+                          )
+                        : CustomImageView(
+                            // imagePath: ImageConstant.avatarPortrait,
+                            imagePath: File(model.file!.path).path,
+                            width: 50,
+                            height: 50,
+                            radius: BorderRadius.circular(10),
+                          ),
                   )
                 ],
               ),

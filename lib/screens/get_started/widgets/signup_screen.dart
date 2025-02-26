@@ -7,6 +7,7 @@ import 'package:hey_follow_up/util/validation_functions.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_text_form_field.dart';
 
+import '../../../widget/custom_dialogs.dart';
 import '../../../widget/custom_phone_number.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -46,7 +47,13 @@ class SignUpScreen extends StatelessWidget {
               ),
               CustomElevatedButton(
                 onPressed: (){
-                  _formKey.currentState?.validate();
+                 if (_formKey.currentState?.validate() ?? false){
+                   if(!model.acceptTerms){
+                     CustomDialogs.showPopupDialogs(context, message: 'Accept terms and conditions to continue.');
+                     return;
+                   }
+                    model.doSignUp(context);
+                  }
                 },
                 text: 'Log In',
                 buttonStyle: CustomButtonStyles.fillPrimary,
@@ -196,8 +203,8 @@ class SignUpScreen extends StatelessWidget {
           children: [
             Checkbox(
               activeColor: AppColor.kPrimaryColor,
-              value: model.rememberMe,
-              onChanged: (value) => model.toggleRememberMe(),
+              value: model.acceptTerms,
+              onChanged: (value) => model.toggleAcceptTerms(),
             ),
             Text(
               'I accept the terms and privacy policy',

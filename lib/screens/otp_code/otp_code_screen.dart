@@ -9,12 +9,14 @@ import '../../util/styles/custom_button_style.dart';
 import 'view_model/otp_code_vm.dart';
 
 class OtpCodeScreen extends StatelessWidget {
-  const OtpCodeScreen({super.key});
+  const OtpCodeScreen({super.key, required this.payload});
 
-  static Future<void> show(BuildContext context) async {
+  final Map<String, String> payload;
+
+  static Future<void> show(BuildContext context, Map<String, String> payload) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => const OtpCodeScreen(),
+        builder: (_) => OtpCodeScreen(payload: payload,),
       ),
     );
   }
@@ -22,7 +24,7 @@ class OtpCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<OtpCodeVm>(
-        onModelReady: (p0) => p0.waitingTime(),
+        onModelReady: (p0) => p0.initialize(),
         onDestroy: (p0) => p0.dispose(),
         builder: (context, model, widget) {
           return Scaffold(
@@ -100,6 +102,10 @@ class OtpCodeScreen extends StatelessWidget {
                 height: 20,
               ),
               Pinput(
+                onCompleted: (String pin){
+                  payload['otpCode'] = pin;
+                  model.verifyPin(context, payload);
+                },
                 defaultPinTheme: PinTheme(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
@@ -142,14 +148,14 @@ class OtpCodeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 150),
-              CustomElevatedButton(
-                onPressed: (){
-                  SuccessScreen.show(context);
-                },
-                text: 'Continue',
-                buttonStyle: CustomButtonStyles.fillPrimary,
-              ),
+              // SizedBox(height: 150),
+              // CustomElevatedButton(
+              //   onPressed: (){
+              //     SuccessScreen.show(context);
+              //   },
+              //   text: 'Continue',
+              //   buttonStyle: CustomButtonStyles.fillPrimary,
+              // ),
             ],
           ),
         ),

@@ -4,8 +4,11 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:hey_follow_up/screens/create_follow_up/model/next_step_model.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateFollowUpVM extends BaseModel{
+
+  XFile? file;
 
   final List<NextStepModel> nextSteps = [
     NextStepModel('Ignore', AppColor.nextStepIgnore),
@@ -50,6 +53,11 @@ class CreateFollowUpVM extends BaseModel{
 
   void removeNextStepItem(NextStepModel item) {
     selectedNextSteps.remove(item);
+    notifyListeners();
+  }
+
+  void addFile(XFile file) {
+    this.file = file;
     notifyListeners();
   }
 }

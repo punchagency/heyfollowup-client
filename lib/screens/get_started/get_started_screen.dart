@@ -6,21 +6,23 @@ import 'package:hey_follow_up/screens/get_started/widgets/signup_screen.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
 
 class GetStartedScreen extends StatelessWidget {
-  const GetStartedScreen({super.key});
+  const GetStartedScreen(this.landingScreen, {super.key});
 
-  static Future<void> show(BuildContext context) async {
-    await Navigator.of(context).pushAndRemoveUntil(
+  final int landingScreen;
+
+  static Future<void> show(BuildContext context, {int landingScreen = 0}) async {
+    await Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (_) => const GetStartedScreen(),
+        builder: (_) => GetStartedScreen(landingScreen),
       ),
-      ((route) => false),
+      // ((route) => false),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseView<GetStartedVm>(
-        onModelReady: (p0) => p0.initialize(context),
+        onModelReady: (p0) => p0.initialize(context, landingScreen),
         builder: (context, model, widget) {
           return Scaffold(
               backgroundColor: AppColor.kScaffoldBackgroundColor,
