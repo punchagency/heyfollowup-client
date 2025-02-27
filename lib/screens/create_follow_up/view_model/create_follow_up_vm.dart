@@ -112,6 +112,7 @@ class CreateFollowUpVM extends BaseModel{
     popContext(context);
     if (result.isSuccessful) {
       if (result.responseBody != null) {
+        clearAllText();
         popContext(context);
         CustomDialogs.showPopupDialogs(context, message: 'Follow Up successfully!', isSuccess: true);
       }
@@ -152,5 +153,25 @@ class CreateFollowUpVM extends BaseModel{
         notifyListeners();
       }
     }
+  }
+
+  void clearAllText(){
+    phoneNumberController.clear();
+    fullNameController.clear();
+    metWithController.clear();
+    emailController.clear();
+    locationController.clear();
+    factsController.clear();
+    linkedInProfileController.clear();
+    nextStepsController.clear();
+    selectedDate = null;
+    selectedNextSteps.clear();
+    daysLater = -1;
+    isFollowUpNow = true;
+    notifyListeners();
+  }
+
+  void init() {
+    clearAllText();
   }
 }
