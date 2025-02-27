@@ -34,7 +34,11 @@ class CreateFollowUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<CreateFollowUpVM>(builder: (context, model, child) {
+    return BaseView<CreateFollowUpVM>(
+      onModelReady: (model){
+        model.init();
+      },
+        builder: (context, model, child) {
       return Scaffold(
         body: SafeArea(
             child: Padding(
