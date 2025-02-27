@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hey_follow_up/data/models/follow_up_model.dart';
 import 'package:hey_follow_up/screens/follow_up_detail/follow_up_detail_screen.dart';
+import 'package:hey_follow_up/util/date_helper.dart';
 import '../../../util/color_scheme.dart';
-import '../../../util/image_constant.dart';
 import '../../../widget/custom_image_view.dart';
 
 class SingleUserWidget extends StatelessWidget {
+  SingleUserWidget(this.followup);
+
+  final FollowUpModel followup;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -12,7 +17,7 @@ class SingleUserWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
         onTap: (){
-          FollowUpDetailScreen.show(context);
+          FollowUpDetailScreen.show(context, followup);
         },
         child: Column(
           children: [
@@ -25,7 +30,8 @@ class SingleUserWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 120,
                 fit: BoxFit.cover,
-                imagePath: ImageConstant.avatar1,
+                imagePath: null,
+                // imagePath: ImageConstant.avatar1,
               ),
             ),
             SizedBox(
@@ -39,7 +45,7 @@ class SingleUserWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      'Charles Oliveira',
+                      followup.name ?? '',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
@@ -56,7 +62,7 @@ class SingleUserWidget extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          '1/12/2024 2:25 PM',
+                          DateHelper.formatDate(followup.date ?? ''),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
@@ -72,7 +78,7 @@ class SingleUserWidget extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          'Santorini',
+                          followup.meetingLocation ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
@@ -86,7 +92,7 @@ class SingleUserWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       child: Text(
-                        'Catch Up',
+                        followup.nextSteps?.firstOrNull ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: AppColor.kPrimaryColor,

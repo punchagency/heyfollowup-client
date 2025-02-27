@@ -10,4 +10,7 @@ class EndPoints {
 
   static String userDetails = '$baseUrl/api/auth/profile';
 
+  //followups
+  static String followup = '$baseUrl/api/follow-up/';
+
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
+import 'package:hey_follow_up/data/models/follow_up_model.dart';
 import 'package:hey_follow_up/screens/follow_up_detail/view_model/follow_up_detail_vm.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
-import 'package:hey_follow_up/util/image_constant.dart';
+import 'package:hey_follow_up/util/date_helper.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_image_view.dart';
 
@@ -10,10 +11,14 @@ import '../../util/styles/custom_button_style.dart';
 import '../../widget/custom_text_form_field.dart';
 
 class FollowUpDetailScreen extends StatelessWidget {
-  static Future<void> show(BuildContext context) async {
+  FollowUpDetailScreen(this.followup);
+
+  final FollowUpModel followup;
+
+  static Future<void> show(BuildContext context, FollowUpModel followup) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => FollowUpDetailScreen(),
+        builder: (_) => FollowUpDetailScreen(followup),
       ),
     );
   }
@@ -39,7 +44,7 @@ class FollowUpDetailScreen extends StatelessWidget {
                           children: [
                             CustomImageView(
                               radius: BorderRadius.circular(20),
-                              imagePath: ImageConstant.avatar1,
+                              // imagePath: ImageConstant.avatar1,
                               width: double.infinity,
                               height: 300,
                             ),
@@ -59,7 +64,7 @@ class FollowUpDetailScreen extends StatelessWidget {
                                   vertical: 8,
                                 ),
                                 child: Text(
-                                  'John Morsan',
+                                  followup.name ?? '',
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
@@ -80,10 +85,10 @@ class FollowUpDetailScreen extends StatelessWidget {
                           height: 10,
                         ),
                         _buildDate(model),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _buildDay(model),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // _buildDay(model),
                         const SizedBox(
                           height: 10,
                         ),
@@ -153,7 +158,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "Charles Oliveira",
+          hintText: followup.metWith,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -175,7 +180,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "04/02/2025",
+          hintText: DateHelper.formatDate(followup.date ?? ''),
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -219,7 +224,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "charlesrichie@gmail.com",
+          hintText: followup.email ?? '',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -241,7 +246,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "Office",
+          hintText: followup.meetingLocation,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -263,7 +268,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "Nothing",
+          hintText: followup.randomFacts,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -285,7 +290,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "www.linkedin.com",
+          hintText: followup.linkedinUrl,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -307,7 +312,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "Catchup",
+          hintText: followup.nextSteps?.join(', '),
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -329,7 +334,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "(+1) 1122-334-567",
+          hintText: followup.phoneNumber,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
