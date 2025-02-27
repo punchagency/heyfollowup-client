@@ -6,6 +6,7 @@ import 'package:hey_follow_up/core/view_helper/base_view.dart';
 import 'package:hey_follow_up/screens/create_follow_up/model/next_step_model.dart';
 import 'package:hey_follow_up/screens/create_follow_up/widget/next_step_list_widget.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
+import 'package:hey_follow_up/util/date_helper.dart';
 import 'package:hey_follow_up/util/styles/custom_button_style.dart';
 import 'package:hey_follow_up/widget/custom_dialogs.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
@@ -114,7 +115,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      _buildDate(model),
+                      _buildDate(model, context),
                       const SizedBox(
                         height: 10,
                       ),
@@ -151,6 +152,9 @@ class CreateFollowUpScreen extends StatelessWidget {
                         height: 20,
                       ),
                       CustomElevatedButton(
+                        onPressed: (){
+                          model.createFollowUp(context);
+                        },
                         text: 'Submit',
                         buttonStyle: CustomButtonStyles.fillPrimary,
                       )
@@ -175,7 +179,7 @@ class CreateFollowUpScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           hintText: "Enter name",
-          textInputType: TextInputType.emailAddress,
+          controller: model.fullNameController,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 14,
@@ -186,7 +190,7 @@ class CreateFollowUpScreen extends StatelessWidget {
     );
   }
 
-  _buildDate(CreateFollowUpVM model) {
+  _buildDate(CreateFollowUpVM model, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -194,18 +198,23 @@ class CreateFollowUpScreen extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        CustomTextFormField(
-          suffix: Icon(
-            Icons.calendar_month_rounded,
-            color: AppColor.kPrimaryColor,
+        InkWell(
+          onTap: (){
+            model.selectDateTime(context);
+          },
+          child: CustomTextFormField(
+            suffix: Icon(
+              Icons.calendar_month_rounded,
+              color: AppColor.kPrimaryColor,
+            ),
+            hintText: model.selectedDate != null ? DateHelper.formatDate(model.selectedDate!) : "Enter date",
+            enabled: false,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
+            borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
           ),
-          hintText: "Enter date",
-          textInputType: TextInputType.emailAddress,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
-          ),
-          borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
         )
       ],
     );
@@ -221,7 +230,7 @@ class CreateFollowUpScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           hintText: "Name",
-          textInputType: TextInputType.emailAddress,
+          controller: model.metWithController,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 14,
@@ -242,6 +251,7 @@ class CreateFollowUpScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           hintText: "enter email",
+          controller: model.emailController,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -263,7 +273,7 @@ class CreateFollowUpScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           hintText: "Enter location",
-          textInputType: TextInputType.emailAddress,
+          controller: model.locationController,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 14,
@@ -284,7 +294,7 @@ class CreateFollowUpScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           hintText: "Enter facts",
-          textInputType: TextInputType.emailAddress,
+          controller: model.factsController,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 14,
@@ -308,7 +318,7 @@ class CreateFollowUpScreen extends StatelessWidget {
             Expanded(
               child: CustomTextFormField(
                 hintText: "www.linkedin.com",
-                textInputType: TextInputType.emailAddress,
+                controller: model.linkedInProfileController,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 14,
