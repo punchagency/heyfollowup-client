@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hey_follow_up/data/models/follow_up_model.dart';
 import 'package:hey_follow_up/screens/follow_up_detail/follow_up_detail_screen.dart';
 import 'package:hey_follow_up/util/date_helper.dart';
+import 'package:hey_follow_up/util/image_base_64.dart';
 import '../../../util/color_scheme.dart';
 import '../../../widget/custom_image_view.dart';
 
@@ -21,18 +22,24 @@ class SingleUserWidget extends StatelessWidget {
         },
         child: Column(
           children: [
-            ClipRect(
-              child: CustomImageView(
-                radius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-                width: double.infinity,
-                height: 120,
-                fit: BoxFit.cover,
-                imagePath: null,
-                // imagePath: ImageConstant.avatar1,
-              ),
+            FutureBuilder(
+              future: ImageBase64.getBase64Image(followup.image),
+              builder: (context, snapshot) {
+                var data = snapshot.data;
+                return ClipRect(
+                  child: CustomImageView(
+                    radius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                    width: double.infinity,
+                    height: 140,
+                    fit: BoxFit.cover,
+                    imagePath: data,
+                    // imagePath: ImageConstant.avatar1,
+                  ),
+                );
+              }
             ),
             SizedBox(
               height: 5,
@@ -45,7 +52,7 @@ class SingleUserWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      followup.name ?? '',
+                      followup.name ?? '--',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
@@ -62,7 +69,7 @@ class SingleUserWidget extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          DateHelper.formatDate(followup.date ?? ''),
+                            (followup.date ?? '').isEmpty ? '--' : DateHelper.formatDate(followup.date ?? ''),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
@@ -78,7 +85,7 @@ class SingleUserWidget extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          followup.meetingLocation ?? '',
+                          followup.meetingLocation ?? '--',
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
@@ -92,7 +99,7 @@ class SingleUserWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       child: Text(
-                        followup.nextSteps?.firstOrNull ?? '',
+                        followup.nextSteps?.firstOrNull ?? '--',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: AppColor.kPrimaryColor,

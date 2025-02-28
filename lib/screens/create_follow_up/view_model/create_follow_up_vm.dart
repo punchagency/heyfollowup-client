@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:hey_follow_up/screens/create_follow_up/model/next_step_model.dart';
-import 'package:hey_follow_up/util/color_scheme.dart';
+import 'package:hey_follow_up/util/constants.dart';
+import 'package:hey_follow_up/util/image_base_64.dart';
 import 'package:hey_follow_up/widget/custom_dialogs.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,13 +21,7 @@ class CreateFollowUpVM extends BaseModel{
 
   final AuthService authService = sl<AuthService>();
 
-  final List<NextStepModel> nextSteps = [
-    NextStepModel('Ignore', AppColor.nextStepIgnore),
-    NextStepModel('Connect them to Someone', AppColor.nextStepConnectSomeone),
-    NextStepModel('Catch Up', AppColor.nextStepCatchUp),
-    NextStepModel('Schedule Follow Up', AppColor.nextStepScheduleFollowUp),
-    NextStepModel('Send them info', AppColor.nextStepSendThemInfo),
-  ];
+  final List<NextStepModel> nextSteps = Constants.nextSteps;
 
   final List<NextStepModel> selectedNextSteps = [];
 
@@ -101,9 +98,17 @@ class CreateFollowUpVM extends BaseModel{
       payload['followUpDays'] = daysLater+1;
     }
 
+    if(file != null){
+      String? base64 = await ImageBase64.convertImageToBase64(File(file!.path));
+      if(base64 != null){
+        payload['image'] = base64;
+      }
+    }
+
     print(payload);
 
     CustomDialogs.showLoadingBar(context);
+
     final result = await ApiClient.initialisePostRequest(
       url: EndPoints.followup,
       token: authService.token,
@@ -114,7 +119,7 @@ class CreateFollowUpVM extends BaseModel{
       if (result.responseBody != null) {
         clearAllText();
         popContext(context);
-        CustomDialogs.showPopupDialogs(context, message: 'Follow Up successfully!', isSuccess: true);
+        CustomDialogs.showPopupDialogs(context, message: 'Follow Up Created Successfully!', isSuccess: true);
       }
     } else {
       CustomDialogs.showPopupDialogs(context, message: result.message);

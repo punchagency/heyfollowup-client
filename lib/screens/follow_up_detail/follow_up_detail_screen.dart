@@ -7,6 +7,7 @@ import 'package:hey_follow_up/util/date_helper.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_image_view.dart';
 
+import '../../util/image_base_64.dart';
 import '../../util/styles/custom_button_style.dart';
 import '../../widget/custom_text_form_field.dart';
 
@@ -25,14 +26,18 @@ class FollowUpDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<FollowUpDetailVM>(builder: (context, model, child) {
+    return BaseView<FollowUpDetailVM>(
+      onModelReady: (model){
+        model.init(followup);
+      },
+        builder: (context, model, child) {
       return Scaffold(
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _buildTopRow(context),
+                _buildTopRow(context, model),
                 const SizedBox(
                   height: 20,
                 ),
@@ -42,11 +47,17 @@ class FollowUpDetailScreen extends StatelessWidget {
                       children: [
                         Stack(
                           children: [
-                            CustomImageView(
-                              radius: BorderRadius.circular(20),
-                              // imagePath: ImageConstant.avatar1,
-                              width: double.infinity,
-                              height: 300,
+                            FutureBuilder(
+                                future: ImageBase64.getBase64Image(followup.image),
+                                builder: (context, snapshot) {
+                                  var data = snapshot.data;
+                                return CustomImageView(
+                                  radius: BorderRadius.circular(20),
+                                  imagePath: data,
+                                  width: double.infinity,
+                                  height: 300,
+                                );
+                              }
                             ),
                             Positioned(
                               bottom: 0.0,
@@ -113,6 +124,16 @@ class FollowUpDetailScreen extends StatelessWidget {
                           height: 10,
                         ),
                         _buildPhoneNumber(model),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomElevatedButton(
+                          onPressed: (){
+                            model.update(context, followup);
+                          },
+                          text: 'Update',
+                          buttonStyle: CustomButtonStyles.fillPrimary,
+                        )
                       ],
                     ),
                   ),
@@ -125,7 +146,7 @@ class FollowUpDetailScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildTopRow(context) {
+  Widget _buildTopRow(context, FollowUpDetailVM model) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -139,6 +160,9 @@ class FollowUpDetailScreen extends StatelessWidget {
           ),
         ),
         CustomElevatedButton(
+          onPressed: (){
+            model.showHeardBackDialog(context);
+          },
           text: 'Did You Hear Back',
           width: 150,
           height: 40,
@@ -157,8 +181,8 @@ class FollowUpDetailScreen extends StatelessWidget {
           height: 5,
         ),
         CustomTextFormField(
-          enabled: false,
-          hintText: followup.metWith,
+          controller: model.metWithController,
+          hintText: '',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -223,8 +247,8 @@ class FollowUpDetailScreen extends StatelessWidget {
           height: 5,
         ),
         CustomTextFormField(
-          enabled: false,
-          hintText: followup.email ?? '',
+          controller: model.emailController,
+          hintText: '',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -245,8 +269,8 @@ class FollowUpDetailScreen extends StatelessWidget {
           height: 5,
         ),
         CustomTextFormField(
-          enabled: false,
-          hintText: followup.meetingLocation,
+          controller: model.locationController,
+          hintText: '',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -267,8 +291,8 @@ class FollowUpDetailScreen extends StatelessWidget {
           height: 5,
         ),
         CustomTextFormField(
-          enabled: false,
-          hintText: followup.randomFacts,
+          controller: model.factsController,
+          hintText: '',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,
@@ -289,8 +313,8 @@ class FollowUpDetailScreen extends StatelessWidget {
           height: 5,
         ),
         CustomTextFormField(
-          enabled: false,
-          hintText: followup.linkedinUrl,
+          controller: model.linkedInProfileController,
+          hintText: '',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,

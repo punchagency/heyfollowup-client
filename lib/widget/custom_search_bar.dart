@@ -5,12 +5,14 @@ import 'package:hey_follow_up/widget/custom_image_view.dart';
 
 // ignore_for_file: must_be_immutable
 class CustomSearchBar extends StatelessWidget {
-  CustomSearchBar({Key? key, required this.onChanged, this.controller})
+  CustomSearchBar({Key? key, required this.onChanged, this.controller, this.onShowPopupMenu})
       : super(
           key: key,
         );
 
   Function(String value) onChanged;
+
+  Function(TapDownDetails details)? onShowPopupMenu;
 
   TextEditingController? controller;
 
@@ -60,8 +62,8 @@ class CustomSearchBar extends StatelessWidget {
               color: AppColor.kFormBorderColor,
               thickness: 0.5,
             ),
-            InkWell(
-              onTap: () {},
+            GestureDetector(
+              onTapDown: onShowPopupMenu,
               child: CustomImageView(
                 imagePath: ImageConstant.filerIcon,
                 height: 30,

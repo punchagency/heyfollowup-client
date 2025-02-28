@@ -20,33 +20,13 @@ class FollowUpsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: Text(
-                  //         'FollowUps',
-                  //         style: Theme.of(context)
-                  //             .textTheme
-                  //             .displayLarge
-                  //             ?.copyWith(fontWeight: FontWeight.bold),
-                  //       ),
-                  //     ),
-                  //     Container(
-                  //       padding:
-                  //           const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
-                  //       decoration: BoxDecoration(
-                  //           color: AppColor.kPrimaryColor.withOpacity(0.2),
-                  //           borderRadius: BorderRadius.circular(10),
-                  //           border: Border.all(color: AppColor.kPrimaryColor)),
-                  //       child: SvgPicture.asset(
-                  //         ImageConstant.profileIcon,
-                  //         color: AppColor.kPrimaryColor,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   CustomSearchBar(
-                    onChanged: (String? value) {},
+                    onChanged: (String? value) {
+                      model.searchItem(value);
+                    },
+                    onShowPopupMenu: (details){
+                      model.showPopupMenu(context, details.globalPosition);
+                    },
                   ),
                   SizedBox(
                     height: 20,
