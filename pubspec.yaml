@@ -39,6 +39,9 @@ dependencies:
   country_picker: ^2.0.27
   camera: ^0.10.5+5
   intl: ^0.20.2
+  flutter_html: any
+  flutter_markdown: ^0.6.18
+  share_plus: ^10.1.4
 
 
 dev_dependencies:

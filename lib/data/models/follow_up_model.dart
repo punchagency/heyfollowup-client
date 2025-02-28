@@ -8,6 +8,7 @@ class FollowUpModel {
   String? meetingLocation;
   String? randomFacts;
   String? linkedinUrl;
+  String? image;
   List<String>? nextSteps;
   String? schedule;
   String? phoneNumber;
@@ -25,6 +26,7 @@ class FollowUpModel {
         this.meetingLocation,
         this.randomFacts,
         this.linkedinUrl,
+        this.image,
         this.nextSteps,
         this.schedule,
         this.phoneNumber,
@@ -42,6 +44,7 @@ class FollowUpModel {
     meetingLocation = json['meetingLocation'];
     randomFacts = json['randomFacts'];
     linkedinUrl = json['linkedinUrl'];
+    image = json['image'];
     nextSteps = json['nextSteps'].cast<String>();
     schedule = json['schedule'];
     phoneNumber = json['phoneNumber'];
@@ -61,6 +64,7 @@ class FollowUpModel {
     data['meetingLocation'] = this.meetingLocation;
     data['randomFacts'] = this.randomFacts;
     data['linkedinUrl'] = this.linkedinUrl;
+    data['image'] = this.image;
     data['nextSteps'] = this.nextSteps;
     data['schedule'] = this.schedule;
     data['phoneNumber'] = this.phoneNumber;
