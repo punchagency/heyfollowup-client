@@ -152,13 +152,6 @@ class ApiClient {
         message: '$e',
       );
     }
-    // } else {
-    //   return ApiResponse(
-    //     responseBody: '',
-    //     isSuccessful: false,
-    //     message: 'Check your internet connection',
-    //   );
-    // }
   }
 
   static Future<ApiResponse> initialisePutRequest(

@@ -9,7 +9,7 @@ class FollowUpModel {
   String? randomFacts;
   String? linkedinUrl;
   String? image;
-  List<String>? nextSteps;
+  String? nextSteps;
   String? schedule;
   String? phoneNumber;
   String? createdAt;
@@ -45,7 +45,7 @@ class FollowUpModel {
     randomFacts = json['randomFacts'];
     linkedinUrl = json['linkedinUrl'];
     image = json['image'];
-    nextSteps = json['nextSteps'].cast<String>();
+    nextSteps = json['nextSteps'];
     schedule = json['schedule'];
     phoneNumber = json['phoneNumber'];
     createdAt = json['createdAt'];

@@ -26,11 +26,9 @@ class FollowUpDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<FollowUpDetailVM>(
-      onModelReady: (model){
-        model.init(followup);
-      },
-        builder: (context, model, child) {
+    return BaseView<FollowUpDetailVM>(onModelReady: (model) {
+      model.init(followup);
+    }, builder: (context, model, child) {
       return Scaffold(
         body: SafeArea(
           child: Padding(
@@ -48,23 +46,35 @@ class FollowUpDetailScreen extends StatelessWidget {
                         Stack(
                           children: [
                             FutureBuilder(
-                                future: ImageBase64.getBase64Image(followup.image),
+                                future:
+                                    ImageBase64.getBase64Image(followup.image),
                                 builder: (context, snapshot) {
                                   var data = snapshot.data;
-                                return CustomImageView(
-                                  radius: BorderRadius.circular(20),
-                                  imagePath: data,
-                                  width: double.infinity,
-                                  height: 300,
-                                );
-                              }
-                            ),
+                                  return data == null
+                                      ? CustomImageView(
+                                          radius: BorderRadius.circular(20),
+                                          width: double.infinity,
+                                          height: 300,
+                                        )
+                                      : ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: Image.memory(
+                                            filterQuality: FilterQuality.low,
+                                            data,
+                                            height: 300,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                }),
                             Positioned(
                               bottom: 0.0,
                               left: 0.0,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: AppColor.kPrimaryColor.withOpacity(0.6),
+                                  color:
+                                      AppColor.kPrimaryColor.withOpacity(0.6),
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(20),
                                     topRight: Radius.circular(20),
@@ -128,7 +138,7 @@ class FollowUpDetailScreen extends StatelessWidget {
                           height: 20,
                         ),
                         CustomElevatedButton(
-                          onPressed: (){
+                          onPressed: () {
                             model.update(context, followup);
                           },
                           text: 'Update',
@@ -160,8 +170,8 @@ class FollowUpDetailScreen extends StatelessWidget {
           ),
         ),
         CustomElevatedButton(
-          onPressed: (){
-            model.showHeardBackDialog(context);
+          onPressed: () {
+            model.showHeardBackDialog(context, followup);
           },
           text: 'Did You Hear Back',
           width: 150,
@@ -336,7 +346,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: followup.nextSteps?.join(', '),
+          hintText: followup.nextSteps,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,

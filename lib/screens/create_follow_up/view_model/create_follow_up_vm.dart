@@ -23,7 +23,7 @@ class CreateFollowUpVM extends BaseModel{
 
   final List<NextStepModel> nextSteps = Constants.nextSteps;
 
-  final List<NextStepModel> selectedNextSteps = [];
+  List<NextStepModel> selectedNextSteps = [];
 
   final phoneNumberController = TextEditingController();
   final fullNameController = TextEditingController();
@@ -59,9 +59,10 @@ class CreateFollowUpVM extends BaseModel{
   }
 
   void addNextStepItem(NextStepModel item) {
-    if(!selectedNextSteps.contains(item)){
-      selectedNextSteps.add(item);
-    }
+    selectedNextSteps = [item];
+    // if(!selectedNextSteps.contains(item)){
+    //   selectedNextSteps.add(item);
+    // }
     notifyListeners();
   }
 
@@ -81,7 +82,7 @@ class CreateFollowUpVM extends BaseModel{
       return;
     }
 
-    var payload = {
+    Map<String, dynamic> payload = {
       "name": fullNameController.text,
       "date": selectedDate,
       "metWith": metWithController.text,
@@ -89,7 +90,7 @@ class CreateFollowUpVM extends BaseModel{
       "meetingLocation": locationController.text,
       "randomFacts": factsController.text,
       "linkedinUrl": linkedInProfileController.text,
-      "nextSteps": selectedNextSteps.map((element) => element.title).toList(),
+      "nextSteps": selectedNextSteps.firstOrNull?.title,
       "schedule": isFollowUpNow ? 'Follow Up Now' : 'Follow Up Later',
       "phoneNumber": "+${selectedCountry.phoneCode}${phoneNumberController.text}"
     };

@@ -12,5 +12,6 @@ class EndPoints {
 
   //followups
   static String followup = '$baseUrl/api/follow-up/';
+  static String getFollowupMessage = '$baseUrl/api/follow-up/generate/';
 
 }
