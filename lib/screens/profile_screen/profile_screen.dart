@@ -2,6 +2,7 @@ import 'package:country_pickers/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
+import 'package:hey_follow_up/screens/get_started/get_started_screen.dart';
 import 'package:hey_follow_up/widget/custom_profile_picture.dart';
 import '../../util/color_scheme.dart';
 import '../../util/image_constant.dart';
@@ -15,7 +16,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<ProfileScreenVM>(builder: (context, model, child) {
+    return BaseView<ProfileScreenVM>(
+      onModelReady: (model){
+        model.onInit(context);
+      },
+        builder: (context, model, child) {
       return Scaffold(
           body: Form(
         key: _formKey,
@@ -30,17 +35,22 @@ class ProfileScreen extends StatelessWidget {
               //   ),
               // ),
               actions: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: AppColor.kWhiteColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset(
-                    ImageConstant.logoutIcon,
-                    color: AppColor.kWhiteColor,
+                InkWell(
+                  onTap: (){
+                    GetStartedScreen.show(context);
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: AppColor.kWhiteColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: SvgPicture.asset(
+                      ImageConstant.logoutIcon,
+                      color: AppColor.kWhiteColor,
+                    ),
                   ),
                 ),
               ],
@@ -60,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomProfilePicture(
-                          imageUrl: ImageConstant.avatar1,
+                          // imageUrl: ImageConstant.avatar1,
                           padding: 20.0,
                           width: 100,
                           height: 100,
@@ -69,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          'John Morsan',
+                          model.authService.user?.fullName ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall
@@ -112,10 +122,10 @@ class ProfileScreen extends StatelessWidget {
                           height: 20,
                         ),
                         _buildPhoneNumber(model),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        _buildPassword(model, context),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+                        // _buildPassword(model, context),
                       ],
                     ),
                   )

@@ -10,8 +10,7 @@ import '../../../data/server/endpoints.dart';
 import '../../../services/auth/auth_service.dart';
 import '../../../widget/custom_dialogs.dart';
 
-class FollowUpDetailVM extends BaseModel{
-
+class FollowUpDetailVM extends BaseModel {
   final phoneNumberController = TextEditingController();
   final fullNameController = TextEditingController();
   final metWithController = TextEditingController();
@@ -49,7 +48,7 @@ class FollowUpDetailVM extends BaseModel{
     CustomDialogs.showLoadingBar(context);
 
     final result = await ApiClient.initialisePatchRequest(
-      url: EndPoints.followup+'${followup.sId}',
+      url: EndPoints.followup + '${followup.sId}',
       token: authService.token,
       data: payload,
     );
@@ -57,7 +56,8 @@ class FollowUpDetailVM extends BaseModel{
     if (result.isSuccessful) {
       if (result.responseBody != null) {
         popContext(context);
-        CustomDialogs.showPopupDialogs(context, message: 'Follow Up Updated Successfully!', isSuccess: true);
+        CustomDialogs.showPopupDialogs(context,
+            message: 'Follow Up Updated Successfully!', isSuccess: true);
       }
     } else {
       CustomDialogs.showPopupDialogs(context, message: result.message);
@@ -68,8 +68,7 @@ class FollowUpDetailVM extends BaseModel{
     Navigator.of(context).pop();
   }
 
-  void showHeardBackDialog(BuildContext context) {
-
+  void showHeardBackDialog(BuildContext context, FollowUpModel followup) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -148,15 +147,14 @@ class FollowUpDetailVM extends BaseModel{
       if (value == true) {
         ConversationTip.show(context);
       } else {
-        Future.delayed(Duration(milliseconds: 500)).whenComplete((){
-          scheduleAnotherFollowUp(context);
+        Future.delayed(Duration(milliseconds: 500)).whenComplete(() {
+          scheduleAnotherFollowUp(context, followup);
         });
       }
     });
   }
 
-  void scheduleAnotherFollowUp(BuildContext context) {
-
+  void scheduleAnotherFollowUp(BuildContext context, FollowUpModel followup) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -233,11 +231,27 @@ class FollowUpDetailVM extends BaseModel{
       },
     ).then((value) {
       if (value == true) {
-        Share.share('Hey, Follow up!');
-      } else {
-
-      }
+        _generateMessage(context, followup);
+      } else {}
     });
   }
 
+  void _generateMessage(BuildContext context, FollowUpModel followup) async {
+    CustomDialogs.showLoadingBar(context);
+
+    final result = await ApiClient.initialiseGetRequest(
+      url: EndPoints.getFollowupMessage + '${followup.sId}',
+      token: authService.token,
+    );
+    popContext(context);
+    if (result.isSuccessful) {
+      if (result.responseBody != null) {
+        var response = result.responseBody['response'] ?? {};
+        var newMessage = response['newMessage'] ?? '';
+        Share.share(newMessage);
+      }
+    } else {
+      CustomDialogs.showPopupDialogs(context, message: result.message);
+    }
+  }
 }

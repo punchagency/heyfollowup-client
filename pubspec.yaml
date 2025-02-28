@@ -42,6 +42,7 @@ dependencies:
   flutter_html: any
   flutter_markdown: ^0.6.18
   share_plus: ^10.1.4
+  qr_code_scanner_plus: ^2.0.10+1
 
 
 dev_dependencies:

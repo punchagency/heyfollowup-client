@@ -60,8 +60,10 @@ class FollowUpsVm extends BaseModel {
               notifyListeners();
               _filterItems(Constants.nextSteps[index]);
             },
+            padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
             value: index,
             child: CustomPopup(
+              color: Constants.nextSteps[index].color,
               isSelected: selectedItem == index,
               title: Constants.nextSteps[index].title,
             ),
@@ -89,9 +91,7 @@ class FollowUpsVm extends BaseModel {
       followups = allFollowups;
     } else {
       followups = allFollowups.where((element) {
-        return element.nextSteps?.any((item) =>
-                item.toLowerCase().contains(nextStep.title.toLowerCase())) ??
-            false;
+        return (element.nextSteps ?? '').toLowerCase().contains(nextStep.title.toLowerCase());
       }).toList();
     }
     notifyListeners();

@@ -17,30 +17,39 @@ class SingleUserWidget extends StatelessWidget {
       // elevation: 2.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           FollowUpDetailScreen.show(context, followup);
         },
         child: Column(
           children: [
             FutureBuilder(
-              future: ImageBase64.getBase64Image(followup.image),
-              builder: (context, snapshot) {
-                var data = snapshot.data;
-                return ClipRect(
-                  child: CustomImageView(
-                    radius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    ),
-                    width: double.infinity,
-                    height: 140,
-                    fit: BoxFit.cover,
-                    imagePath: data,
-                    // imagePath: ImageConstant.avatar1,
-                  ),
-                );
-              }
-            ),
+                future: ImageBase64.getBase64Image(followup.image),
+                builder: (context, snapshot) {
+                  var data = snapshot.data;
+                  return data == null
+                      ? CustomImageView(
+                          radius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                          width: double.infinity,
+                          height: 140,
+                          fit: BoxFit.cover,
+                          // imagePath: ImageConstant.avatar1,
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                          child: Image.memory(
+                            data,
+                            height: 140,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                }),
             SizedBox(
               height: 5,
             ),
@@ -69,7 +78,9 @@ class SingleUserWidget extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                            (followup.date ?? '').isEmpty ? '--' : DateHelper.formatDate(followup.date ?? ''),
+                          (followup.date ?? '').isEmpty
+                              ? '--'
+                              : DateHelper.formatDate(followup.date ?? ''),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
@@ -99,7 +110,7 @@ class SingleUserWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       child: Text(
-                        followup.nextSteps?.firstOrNull ?? '--',
+                        followup.nextSteps ?? '--',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: AppColor.kPrimaryColor,

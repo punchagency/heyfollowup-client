@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
 import 'package:hey_follow_up/screens/create_follow_up/model/next_step_model.dart';
 import 'package:hey_follow_up/screens/create_follow_up/widget/next_step_list_widget.dart';
+import 'package:hey_follow_up/screens/create_follow_up/widget/qr_code_scanner.dart';
 import 'package:hey_follow_up/util/color_scheme.dart';
 import 'package:hey_follow_up/util/date_helper.dart';
 import 'package:hey_follow_up/util/styles/custom_button_style.dart';
@@ -34,11 +35,9 @@ class CreateFollowUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<CreateFollowUpVM>(
-      onModelReady: (model){
-        model.init();
-      },
-        builder: (context, model, child) {
+    return BaseView<CreateFollowUpVM>(onModelReady: (model) {
+      model.init();
+    }, builder: (context, model, child) {
       return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -139,7 +138,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      _buildLinkedInProfileUrl(model),
+                      _buildLinkedInProfileUrl(context, model),
                       const SizedBox(
                         height: 10,
                       ),
@@ -156,7 +155,7 @@ class CreateFollowUpScreen extends StatelessWidget {
                         height: 20,
                       ),
                       CustomElevatedButton(
-                        onPressed: (){
+                        onPressed: () {
                           model.createFollowUp(context);
                         },
                         text: 'Submit',
@@ -203,15 +202,18 @@ class CreateFollowUpScreen extends StatelessWidget {
           height: 5,
         ),
         InkWell(
-          onTap: (){
+          onTap: () {
             model.selectDateTime(context);
           },
           child: CustomTextFormField(
+            fillColor: Colors.transparent,
             suffix: Icon(
               Icons.calendar_month_rounded,
               color: AppColor.kPrimaryColor,
             ),
-            hintText: model.selectedDate != null ? DateHelper.formatDate(model.selectedDate!) : "Enter date",
+            hintText: model.selectedDate != null
+                ? DateHelper.formatDate(model.selectedDate!)
+                : "Enter date",
             enabled: false,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 16,
@@ -309,7 +311,7 @@ class CreateFollowUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLinkedInProfileUrl(CreateFollowUpVM model) {
+  Widget _buildLinkedInProfileUrl(BuildContext context, CreateFollowUpVM model) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -335,25 +337,39 @@ class CreateFollowUpScreen extends StatelessWidget {
               width: 10,
             ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColor.kFormBorderColor,
+              child: InkWell(
+                onTap: () async {
+                  final result = await Navigator.of(context).push<String>(
+                    MaterialPageRoute(
+                      builder: (_) => QrCodeScanner(),
                     ),
-                    borderRadius: BorderRadius.circular(10)),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-                child: Row(
-                  children: [
-                    Expanded(child: Text('Scan QR Code')),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.qr_code,
-                      color: AppColor.kPrimaryColor,
-                    )
-                  ],
+                  );
+
+                  if (result != null) {
+                    print('Scanned QR Code: $result');
+                    model.linkedInProfileController.text = result;
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColor.kFormBorderColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text('Scan QR Code')),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.qr_code,
+                        color: AppColor.kPrimaryColor,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -386,10 +402,11 @@ class CreateFollowUpScreen extends StatelessWidget {
                   CustomDialogs.showCustomModalBottomSheet(
                     context,
                     NextStepListWidget<NextStepModel>(
-                        onItemSelected: (NextStepModel item) {
-                          model.addNextStepItem(item);
-                        },
-                        list: model.nextSteps),
+                      onItemSelected: (NextStepModel item) {
+                        model.addNextStepItem(item);
+                      },
+                      list: model.nextSteps,
+                    ),
                   );
                 },
                 child: Container(

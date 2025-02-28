@@ -6,24 +6,36 @@ import 'package:path_provider/path_provider.dart';
 
 class ImageBase64 {
 
- static Future<String?> getBase64Image(String? base64String) async {
+ static Future<Uint8List?> getBase64Image(String? base64String) async {
    try {
      if(base64String == null || base64String.isEmpty){
           return null;
         }
      Uint8List bytes = base64Decode(base64String.split(',').last);
-     Directory tempDir = await getTemporaryDirectory();
-     String filePath = "${tempDir.path}/image.jpg";
-
-     File file = File(filePath);
-     await file.writeAsBytes(bytes);
-
-     return filePath;
+     return bytes;
    } catch (e) {
      print(e);
      return null;
    }
   }
+// static Future<String?> getBase64Image(String? base64String) async {
+//    try {
+//      if(base64String == null || base64String.isEmpty){
+//           return null;
+//         }
+//      Uint8List bytes = base64Decode(base64String.split(',').last);
+//      Directory tempDir = await getTemporaryDirectory();
+//      String filePath = "${tempDir.path}/image.jpg";
+//
+//      File file = File(filePath);
+//      await file.writeAsBytes(bytes);
+//
+//      return filePath;
+//    } catch (e) {
+//      print(e);
+//      return null;
+//    }
+//   }
 
 
  static Future<String?> convertImageToBase64(File imageFile) async {
