@@ -46,8 +46,8 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-    <string>Allow FollowUp to access your camera</string>
+    <string>This app requires access to the camera to allow users to take pictures for followups.</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Allow FollowUp to use your microphone</string>
+    <string>This app needs microphone access to record audio for voice notes.</string>
 </dict>
 </plist>

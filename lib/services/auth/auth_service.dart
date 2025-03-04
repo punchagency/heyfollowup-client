@@ -13,6 +13,8 @@ class AuthService extends ChangeNotifier {
 
   String? get token => _token;
 
+  // String? get token => _token;
+
   set setToken(String token) => _token = token;
 
   UserModel? _user;

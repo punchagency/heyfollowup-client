@@ -24,6 +24,7 @@ class FollowUpsVm extends BaseModel {
       url: EndPoints.followup,
       token: authService.token,
     );
+    print('${result.responseBody}');
     isLoading = false;
     if (result.isSuccessful) {
       if (result.responseBody != null) {

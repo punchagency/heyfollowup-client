@@ -55,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
                     model.doSignUp(context);
                   }
                 },
-                text: 'Log In',
+                text: 'Sign Up',
                 buttonStyle: CustomButtonStyles.fillPrimary,
               )
             ],

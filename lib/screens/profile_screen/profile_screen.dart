@@ -10,17 +10,16 @@ import '../../util/validation_functions.dart';
 import '../../widget/custom_phone_number.dart';
 import '../../widget/custom_text_form_field.dart';
 import 'view_model/profile_screen_vm.dart';
+import 'widgets/payment_form.dart';
 
 class ProfileScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<ProfileScreenVM>(
-      onModelReady: (model){
-        model.onInit(context);
-      },
-        builder: (context, model, child) {
+    return BaseView<ProfileScreenVM>(onModelReady: (model) {
+      model.onInit(context);
+    }, builder: (context, model, child) {
       return Scaffold(
           body: Form(
         key: _formKey,
@@ -36,12 +35,13 @@ class ProfileScreen extends StatelessWidget {
               // ),
               actions: [
                 InkWell(
-                  onTap: (){
+                  onTap: () {
+                    // _showPaymentModal(context);
                     GetStartedScreen.show(context);
                   },
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
                     margin: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       color: AppColor.kWhiteColor.withOpacity(0.1),
@@ -122,9 +122,43 @@ class ProfileScreen extends StatelessWidget {
                           height: 20,
                         ),
                         _buildPhoneNumber(model),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              bool confirmDelete = await showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text("Delete Account"),
+                                  content: Text(
+                                      "Are you sure you want to delete your account? This action is irreversible."),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, false),
+                                        child: Text("Cancel")),
+                                    TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, true),
+                                        child: Text("Delete")),
+                                  ],
+                                ),
+                              );
+
+                              if (confirmDelete) {
+                                model.deleteAccount(context);
+                              }
+                            },
+                            child: Text(
+                              "Delete Account",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red),
+                          ),
+                        ),
                         // _buildPassword(model, context),
                       ],
                     ),
@@ -278,6 +312,27 @@ class ProfileScreen extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  void _showPaymentModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+          ),
+          child: PaymentForm(),
+        );
+      },
     );
   }
 }

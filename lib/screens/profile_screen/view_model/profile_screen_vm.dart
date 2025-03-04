@@ -5,6 +5,7 @@ import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
 import 'package:hey_follow_up/services/auth/auth_service.dart';
 
 import '../../../core/injections/locator.dart';
+import '../../../widget/custom_dialogs.dart';
 
 class ProfileScreenVM extends BaseModel{
 
@@ -41,6 +42,14 @@ class ProfileScreenVM extends BaseModel{
   updateCountry(Country country){
     selectedCountry = country;
     notifyListeners();
+  }
+
+  void deleteAccount(BuildContext context) {
+    CustomDialogs.showLoadingBar(context);
+    Future.delayed(Duration(seconds: 2)).whenComplete((){
+      Navigator.of(context).pop();
+      CustomDialogs.showPopupDialogs(context, isSuccess: true, message: 'Your account deletion requests has been received.');
+    });
   }
 
 }
