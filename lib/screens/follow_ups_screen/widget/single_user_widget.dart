@@ -33,7 +33,7 @@ class SingleUserWidget extends StatelessWidget {
                             topRight: Radius.circular(15),
                           ),
                           width: double.infinity,
-                          height: 140,
+                          height: 120,
                           fit: BoxFit.cover,
                           // imagePath: ImageConstant.avatar1,
                         )
@@ -44,15 +44,12 @@ class SingleUserWidget extends StatelessWidget {
                           ),
                           child: Image.memory(
                             data,
-                            height: 140,
+                            height: 120,
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ),
                         );
                 }),
-            SizedBox(
-              height: 5,
-            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),

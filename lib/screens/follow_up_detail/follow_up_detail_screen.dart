@@ -171,9 +171,13 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomElevatedButton(
           onPressed: () {
-            model.showHeardBackDialog(context, followup);
+            if (model.isFollowUpNow) {
+              model.showHeardBackDialog(context, followup);
+              return;
+            }
+            model.updateFollowUp(context, followup, 'Follow Up Now');
           },
-          text: 'Did You Hear Back',
+          text: model.isFollowUpNow ? 'Did You Hear Back' : 'Follow Up Now',
           width: 150,
           height: 40,
           buttonStyle: CustomButtonStyles.fillPrimary,
@@ -368,7 +372,8 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: followup.phoneNumber,
+          hintText: '',
+          controller: model.phoneNumberController,
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,

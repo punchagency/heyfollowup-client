@@ -21,14 +21,22 @@ class FollowUpDetailVM extends BaseModel {
   final nextStepsController = TextEditingController();
   String? selectedDate;
 
+  bool isFollowUpNow = false;
+
   void init(FollowUpModel followup) {
-    // phoneNumberController.text = (followup.phoneNumber ?? '').substring(4);
+    print('${followup.schedule}');
+    isFollowUpNow = (followup.schedule ?? '').toLowerCase() == 'Follow Up Now'.toLowerCase();
+    phoneNumberController.text = getLastTenDigits(followup.phoneNumber ?? '');
     fullNameController.text = followup.name ?? '';
     metWithController.text = followup.metWith ?? '';
     emailController.text = followup.email ?? '';
     locationController.text = followup.meetingLocation ?? '';
     factsController.text = followup.randomFacts ?? '';
     linkedInProfileController.text = followup.linkedinUrl ?? '';
+  }
+
+  String getLastTenDigits(String number) {
+    return number.length > 10 ? number.substring(number.length - 10) : number;
   }
 
   final AuthService authService = sl<AuthService>();
@@ -249,6 +257,31 @@ class FollowUpDetailVM extends BaseModel {
         var response = result.responseBody['response'] ?? {};
         var newMessage = response['newMessage'] ?? '';
         Share.share(newMessage);
+      }
+    } else {
+      CustomDialogs.showPopupDialogs(context, message: result.message);
+    }
+  }
+
+  void updateFollowUp(BuildContext context, FollowUpModel followup, String followUpType) async {
+    var payload = {
+      "schedule": followUpType,
+    };
+
+    print(payload);
+
+    CustomDialogs.showLoadingBar(context);
+
+    final result = await ApiClient.initialisePatchRequest(
+      url: EndPoints.followup + '${followup.sId}',
+      token: authService.token,
+      data: payload,
+    );
+    popContext(context);
+    if (result.isSuccessful) {
+      if (result.responseBody != null) {
+        isFollowUpNow = !isFollowUpNow;
+        notifyListeners();
       }
     } else {
       CustomDialogs.showPopupDialogs(context, message: result.message);
