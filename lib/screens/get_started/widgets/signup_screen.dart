@@ -30,10 +30,10 @@ class SignUpScreen extends StatelessWidget {
                 height: 20,
               ),
               _buildEmail(),
-              const SizedBox(
-                height: 20,
-              ),
-              _buildPhoneNumber(),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // _buildPhoneNumber(),
               const SizedBox(
                 height: 20,
               ),

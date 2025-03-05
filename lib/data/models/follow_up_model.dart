@@ -15,6 +15,7 @@ class FollowUpModel {
   String? createdAt;
   String? updatedAt;
   int? iV;
+  int? followUpDays;
 
   FollowUpModel(
       {this.sId,
@@ -32,6 +33,7 @@ class FollowUpModel {
         this.phoneNumber,
         this.createdAt,
         this.updatedAt,
+        this.followUpDays,
         this.iV});
 
   FollowUpModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class FollowUpModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
+    followUpDays = json['followUpDays'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +74,7 @@ class FollowUpModel {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
+    data['followUpDays'] = this.followUpDays;
     return data;
   }
 }
