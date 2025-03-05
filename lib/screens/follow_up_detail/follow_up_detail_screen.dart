@@ -106,10 +106,12 @@ class FollowUpDetailScreen extends StatelessWidget {
                           height: 10,
                         ),
                         _buildDate(model),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        // _buildDay(model),
+                        if(!model.isFollowUpNow)...[
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          _buildDay(model),
+                        ],
                         const SizedBox(
                           height: 10,
                         ),
@@ -240,7 +242,7 @@ class FollowUpDetailScreen extends StatelessWidget {
         ),
         CustomTextFormField(
           enabled: false,
-          hintText: "Sat, May 11, 2025",
+          hintText: '${followup.followUpDays ?? 0}',
           textInputType: TextInputType.emailAddress,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16,

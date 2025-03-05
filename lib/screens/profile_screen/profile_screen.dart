@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
 import 'package:hey_follow_up/screens/get_started/get_started_screen.dart';
+import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_profile_picture.dart';
 import '../../util/color_scheme.dart';
 import '../../util/image_constant.dart';
@@ -36,7 +37,6 @@ class ProfileScreen extends StatelessWidget {
               actions: [
                 InkWell(
                   onTap: () {
-                    // _showPaymentModal(context);
                     GetStartedScreen.show(context);
                   },
                   child: Container(
@@ -118,10 +118,14 @@ class ProfileScreen extends StatelessWidget {
                           height: 20,
                         ),
                         _buildEmail(model),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        _buildPhoneNumber(model),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+                        // _buildPhoneNumber(model),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+                        // _buildSubscription(context),
                         const SizedBox(
                           height: 20,
                         ),
@@ -311,6 +315,48 @@ class ProfileScreen extends StatelessWidget {
             return null;
           },
         ),
+      ],
+    );
+  }
+
+  _buildSubscription(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Subscription'),
+        const SizedBox(
+          height: 5,
+        ),
+        InkWell(
+          onTap: () {
+            _showPaymentModal(context);
+          },
+          child: CustomTextFormField(
+            enabled: false,
+            hintText: 'Subscribe',
+            textInputType: TextInputType.emailAddress,
+            fillColor: Colors.transparent,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16,
+              // vertical: 14,
+            ),
+            suffix: Container(
+              decoration: BoxDecoration(
+                color: AppColor.kPrimaryColor,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Center(
+                child: Text(
+                  "Subscribe",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              height: 40,
+              width: 150,
+            ),
+            borderDecoration: TextFormFieldStyleHelper.outlinePrimaryContainer,
+          ),
+        )
       ],
     );
   }

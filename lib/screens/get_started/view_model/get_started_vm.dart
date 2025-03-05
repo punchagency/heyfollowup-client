@@ -96,8 +96,7 @@ class GetStartedVm extends BaseModel {
       data: {
         "full_name": fullNameController.text,
         "email": emailController.text,
-        "phoneNumber":
-            "+${selectedCountry.phoneCode}${phoneNumberController.text}",
+        // "phoneNumber": "+${selectedCountry.phoneCode}${phoneNumberController.text}",
         "password": passwordController.text
       },
     );
