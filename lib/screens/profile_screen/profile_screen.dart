@@ -122,10 +122,10 @@ class ProfileScreen extends StatelessWidget {
                         //   height: 20,
                         // ),
                         // _buildPhoneNumber(model),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
-                        // _buildSubscription(context),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _buildSubscription(context),
                         const SizedBox(
                           height: 20,
                         ),

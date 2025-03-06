@@ -1,6 +1,7 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
 import 'package:hey_follow_up/services/auth/auth_service.dart';
 
@@ -62,4 +63,27 @@ class ProfileScreenVM extends BaseModel {
   void popContext(BuildContext context) {
     Navigator.of(context).pop();
   }
+
+  // Future<void> makePayment() async {
+  //   try {
+  //     //STEP 1: Create Payment Intent
+  //    var paymentIntent = await createPaymentIntent('100', 'USD');
+  //
+  //     //STEP 2: Initialize Payment Sheet
+  //     await Stripe.instance
+  //         .initPaymentSheet(
+  //
+  //         paymentSheetParameters: SetupPaymentSheetParameters(
+  //             paymentIntentClientSecret: paymentIntent![
+  //             'client_secret'], //Gotten from payment intent
+  //             style: ThemeMode.light,
+  //             merchantDisplayName: 'Ikay'))
+  //         .then((value) {});
+  //
+  //     //STEP 3: Display Payment sheet
+  //     displayPaymentSheet();
+  //   } catch (err) {
+  //     throw Exception(err);
+  //   }
+  // }
 }

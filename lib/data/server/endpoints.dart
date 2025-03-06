@@ -1,7 +1,7 @@
 class EndPoints {
   //base url
-  static String baseUrl = 'https://heyfollowup-60c6683d99c1.herokuapp.com';
-  // static String baseUrl = 'https://heyfollowup-server-c6d66688c3f4.herokuapp.com';
+  // static String baseUrl = 'https://heyfollowup-60c6683d99c1.herokuapp.com';
+  static String baseUrl = 'https://heyfollowup-server-c6d66688c3f4.herokuapp.com';
 
   static String login = '$baseUrl/api/auth/signin';
   static String signup = '$baseUrl/api/auth/signup';
@@ -14,5 +14,8 @@ class EndPoints {
   //followups
   static String followup = '$baseUrl/api/follow-up/';
   static String getFollowupMessage = '$baseUrl/api/follow-up/generate/';
+
+  //payment
+  static String processPayment = '$baseUrl/api/payment/';
 
 }

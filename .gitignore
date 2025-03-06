@@ -74,3 +74,6 @@ build/
 /build/
 /ios/Podfile.lock
 /android/app/release/app-release.aab
+
+#Dotenv
+.env
