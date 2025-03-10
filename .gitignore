@@ -77,3 +77,4 @@ build/
 
 #Dotenv
 .env
+/assets/.env
