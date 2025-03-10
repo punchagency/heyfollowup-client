@@ -76,5 +76,4 @@ build/
 /android/app/release/app-release.aab
 
 #Dotenv
-.env
 /.env
