@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hey_follow_up/screens/splash/splash_screen.dart';
 import 'package:hey_follow_up/widget/dismiss_keyboard.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +14,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //Assign publishable key to flutter_stripe
-  Stripe.publishableKey = "pk_test_51QJwe4DFcxVAxBLHvOLnZDV9ZLuQY1ANVlzqzBztc2hYmD17wcocxRqpOsDAeZ9ZGhjcyKAVZTCsGbWJ0m4CzXex00ygH8oXAL";
+  // Stripe.publishableKey = "pk_test_51QJwe4DFcxVAxBLHvOLnZDV9ZLuQY1ANVlzqzBztc2hYmD17wcocxRqpOsDAeZ9ZGhjcyKAVZTCsGbWJ0m4CzXex00ygH8oXAL";
 
   //Load our .env file that contains our Stripe Secret key
-  await dotenv.load(fileName: "assets/.env");
+  // await dotenv.load(fileName: "assets/.env");
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

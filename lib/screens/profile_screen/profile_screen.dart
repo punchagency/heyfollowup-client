@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
 import 'package:hey_follow_up/screens/get_started/get_started_screen.dart';
+import 'package:hey_follow_up/screens/profile_screen/widgets/payment_overview.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_profile_picture.dart';
 import '../../util/color_scheme.dart';
@@ -376,7 +377,7 @@ class ProfileScreen extends StatelessWidget {
             top: 16,
             bottom: MediaQuery.of(context).viewInsets.bottom + 16,
           ),
-          child: PaymentForm(),
+          child: PaymentOverview(),
         );
       },
     );

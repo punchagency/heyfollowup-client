@@ -1,7 +1,6 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
 import 'package:hey_follow_up/services/auth/auth_service.dart';
 
