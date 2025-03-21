@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hey_follow_up/screens/splash/splash_screen.dart';
+import 'package:hey_follow_up/services/messaging/push_notification_service.dart';
 import 'package:hey_follow_up/widget/dismiss_keyboard.dart';
 import 'package:provider/provider.dart';
 import 'core/injections/locator.dart';
@@ -18,6 +19,8 @@ Future<void> main() async {
 
   //Load our .env file that contains our Stripe Secret key
   // await dotenv.load(fileName: "assets/.env");
+
+  await PushNotificationService().setupInteractedMessage();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

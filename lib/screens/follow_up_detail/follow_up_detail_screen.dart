@@ -85,7 +85,7 @@ class FollowUpDetailScreen extends StatelessWidget {
                                   vertical: 8,
                                 ),
                                 child: Text(
-                                  followup.name ?? '',
+                                  followup.metWith ?? '',
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
@@ -373,7 +373,6 @@ class FollowUpDetailScreen extends StatelessWidget {
           height: 5,
         ),
         CustomTextFormField(
-          enabled: false,
           hintText: '',
           controller: model.phoneNumberController,
           textInputType: TextInputType.emailAddress,

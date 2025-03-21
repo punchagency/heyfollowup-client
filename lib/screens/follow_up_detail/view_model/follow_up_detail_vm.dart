@@ -264,24 +264,28 @@ class FollowUpDetailVM extends BaseModel {
   }
 
   void updateFollowUp(BuildContext context, FollowUpModel followup, String followUpType) async {
-    var payload = {
-      "schedule": followUpType,
-    };
+    // var payload = {
+    //   "schedule": followUpType,
+    // };
 
-    print(payload);
+    // print(payload);
 
     CustomDialogs.showLoadingBar(context);
 
-    final result = await ApiClient.initialisePatchRequest(
-      url: EndPoints.followup + '${followup.sId}',
+    final result = await ApiClient.initialiseGetRequest(
+      // url: EndPoints.followupNow,
+      url: EndPoints.followupNow + '${followup.sId}',
       token: authService.token,
-      data: payload,
+      // data: payload,
     );
+    print('${result.responseBody}');
     popContext(context);
     if (result.isSuccessful) {
       if (result.responseBody != null) {
-        isFollowUpNow = !isFollowUpNow;
-        notifyListeners();
+        // isFollowUpNow = !isFollowUpNow;
+        var message = result.responseBody['message'] ?? {};
+        Share.share(message);
+        // notifyListeners();
       }
     } else {
       CustomDialogs.showPopupDialogs(context, message: result.message);

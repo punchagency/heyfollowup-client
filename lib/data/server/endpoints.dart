@@ -13,7 +13,8 @@ class EndPoints {
 
   //followups
   static String followup = '$baseUrl/api/follow-up/';
-  static String getFollowupMessage = '$baseUrl/api/follow-up/generate/';
+  static String followupNow = '$baseUrl/api/follow-up/generate/';
+  static String getFollowupMessage = '$baseUrl/api/follow-up/generate/new/';
 
   //payment
   static String processPayment = '$baseUrl/api/payment/';

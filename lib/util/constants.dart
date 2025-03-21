@@ -216,10 +216,10 @@ class Constants {
 
   static const List<NextStepModel> nextSteps = [
     NextStepModel('Ignore', AppColor.nextStepIgnore),
-    NextStepModel('Connect them to Someone', AppColor.nextStepConnectSomeone),
+    NextStepModel('Connect Them To Someone', AppColor.nextStepConnectSomeone),
     NextStepModel('Catch Up', AppColor.nextStepCatchUp),
     NextStepModel('Schedule Follow Up', AppColor.nextStepScheduleFollowUp),
-    NextStepModel('Send them info', AppColor.nextStepSendThemInfo),
+    NextStepModel('Send Them Info', AppColor.nextStepSendThemInfo),
   ];
 
 }

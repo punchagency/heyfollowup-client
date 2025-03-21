@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hey_follow_up/core/view_helper/base_view.dart';
 import 'package:hey_follow_up/screens/get_started/get_started_screen.dart';
 import 'package:hey_follow_up/screens/profile_screen/widgets/payment_overview.dart';
+import 'package:hey_follow_up/util/styles/custom_button_style.dart';
 import 'package:hey_follow_up/widget/custom_elevated_button.dart';
 import 'package:hey_follow_up/widget/custom_profile_picture.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../util/color_scheme.dart';
 import '../../util/image_constant.dart';
 import '../../util/validation_functions.dart';
@@ -119,14 +121,18 @@ class ProfileScreen extends StatelessWidget {
                           height: 20,
                         ),
                         _buildEmail(model),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _buildShowSupport(context, model),
                         // const SizedBox(
                         //   height: 20,
                         // ),
                         // _buildPhoneNumber(model),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        _buildSubscription(context),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+                        // _buildSubscription(context),
                         const SizedBox(
                           height: 20,
                         ),
@@ -343,9 +349,8 @@ class ProfileScreen extends StatelessWidget {
             ),
             suffix: Container(
               decoration: BoxDecoration(
-                color: AppColor.kPrimaryColor,
-                borderRadius: BorderRadius.circular(10)
-              ),
+                  color: AppColor.kPrimaryColor,
+                  borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: Text(
                   "Subscribe",
@@ -380,6 +385,44 @@ class ProfileScreen extends StatelessWidget {
           child: PaymentOverview(),
         );
       },
+    );
+  }
+
+  _buildShowSupport(BuildContext context, ProfileScreenVM model) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Thanks For Using Our App',
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Expand your network and enhance your personal brand with \'Hey Nice to Meet You\', the Networking Manual and HeyFollowUp! Marketplace for more networking tips, tools and exclusive video content.',
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        CustomElevatedButton(
+          onPressed: () async {
+            String link = 'https://www.hey-followup.com/hey-nice-to-meet-you';
+            final urlRegExp = RegExp(
+                r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+            if (urlRegExp.hasMatch(link)) {
+              await launchUrl(Uri.parse(link),
+              mode: LaunchMode.externalApplication);
+            }
+          },
+          text: 'Grab Your Copy',
+          // text: 'Hey Nice To Meet You',
+          buttonStyle: CustomButtonStyles.fillPrimary,
+        )
+      ],
     );
   }
 }

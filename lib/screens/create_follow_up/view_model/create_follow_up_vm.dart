@@ -37,7 +37,7 @@ class CreateFollowUpVM extends BaseModel{
 
 
   Country selectedCountry =
-  CountryPickerUtils.getCountryByPhoneCode('234');
+  CountryPickerUtils.getCountryByIso3Code('USA');
 
   updateCountry(Country country){
     selectedCountry = country;

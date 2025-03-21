@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/core/view_helper/view_model/base_view_model.dart';
 import 'package:hey_follow_up/data/models/user_model.dart';
@@ -61,13 +62,18 @@ class GetStartedVm extends BaseModel {
   final PrefUtils pref = sl<PrefUtils>();
 
   void doLogin(BuildContext context) async {
+    String? fcmToken = await getFCMDeviceToken();
+    var payload = {
+      "email": emailController.text,
+      "password": passwordController.text
+    };
+    if(fcmToken != null){
+      payload['deviceToken'] = fcmToken;
+    }
     CustomDialogs.showLoadingBar(context);
     final result = await ApiClient.initialisePostRequest(
       url: EndPoints.login,
-      data: {
-        "email": emailController.text,
-        "password": passwordController.text
-      },
+      data: payload,
     );
     popContext(context);
     if (result.isSuccessful) {
@@ -118,5 +124,18 @@ class GetStartedVm extends BaseModel {
   toggleAcceptTerms() {
     acceptTerms = !acceptTerms;
     notifyListeners();
+  }
+
+  Future<String?> getFCMDeviceToken() async {
+    try {
+      await FirebaseMessaging.instance.requestPermission();
+      FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      String? token = await firebaseMessaging.getToken();
+      print('fcmToken $token');
+      return token;
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 }

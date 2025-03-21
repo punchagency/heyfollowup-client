@@ -6,6 +6,7 @@ import 'package:hey_follow_up/util/image_constant.dart';
 import 'package:hey_follow_up/widget/custom_search_bar.dart';
 
 import '../../widget/custom_image_view.dart';
+import '../follow_up_detail/follow_up_detail_screen.dart';
 import 'view_model/follow_ups_vm.dart';
 
 class FollowUpsScreen extends StatelessWidget {
@@ -24,7 +25,7 @@ class FollowUpsScreen extends StatelessWidget {
                     onChanged: (String? value) {
                       model.searchItem(value);
                     },
-                    onShowPopupMenu: (details){
+                    onShowPopupMenu: (details) {
                       model.showPopupMenu(context, details.globalPosition);
                     },
                   ),
@@ -61,11 +62,13 @@ class FollowUpsScreen extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
                                   child: Text(
                                     'You haven\'t followed anyone yet. Start connecting!',
                                     textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.titleLarge,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
                                 ),
                                 const SizedBox(
@@ -95,7 +98,12 @@ class FollowUpsScreen extends StatelessWidget {
                                   itemCount: model.followups.length,
                                   itemBuilder: (context, index) {
                                     return SingleUserWidget(
-                                        model.followups[index]);
+                                      model.followups[index],
+                                      (followup) async {
+                                        await FollowUpDetailScreen.show(context, followup);
+                                        model.fetchFollowups();
+                                      },
+                                    );
                                   },
                                 ),
                               ),

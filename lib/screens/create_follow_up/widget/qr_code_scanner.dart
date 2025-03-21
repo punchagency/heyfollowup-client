@@ -61,7 +61,7 @@ class _QRCodeScannerState extends State<QrCodeScanner> {
           // ),
           Positioned(
             right: 20.0,
-            top: 10.0,
+            top: 50.0,
             child: InkWell(
               onTap: () {
                 Navigator.of(context).pop();

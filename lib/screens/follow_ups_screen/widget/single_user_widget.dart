@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hey_follow_up/data/models/follow_up_model.dart';
-import 'package:hey_follow_up/screens/follow_up_detail/follow_up_detail_screen.dart';
 import 'package:hey_follow_up/util/date_helper.dart';
 import 'package:hey_follow_up/util/image_base_64.dart';
 import '../../../util/color_scheme.dart';
 import '../../../widget/custom_image_view.dart';
 
 class SingleUserWidget extends StatelessWidget {
-  SingleUserWidget(this.followup);
+  SingleUserWidget(this.followup, this.onTap);
 
   final FollowUpModel followup;
+  final Function(FollowUpModel model) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SingleUserWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
         onTap: () {
-          FollowUpDetailScreen.show(context, followup);
+          onTap(followup);
         },
         child: Column(
           children: [
@@ -58,7 +58,7 @@ class SingleUserWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      followup.name ?? '--',
+                      followup.metWith ?? '--',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme

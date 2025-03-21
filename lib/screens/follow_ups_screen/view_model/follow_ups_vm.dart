@@ -18,8 +18,16 @@ class FollowUpsVm extends BaseModel {
 
   Future<void> initialize() async {
     isLoading = true;
-    selectedItem = -1;
     notifyListeners();
+    fetchFollowups();
+    // Future.delayed(Duration(seconds: 2,)).whenComplete((){
+    //   isLoading = false;
+    //   notifyListeners();
+    // });
+  }
+
+  fetchFollowups() async {
+    selectedItem = -1;
     final result = await ApiClient.initialiseGetRequest(
       url: EndPoints.followup,
       token: authService.token,
@@ -37,10 +45,6 @@ class FollowUpsVm extends BaseModel {
       }
     }
     notifyListeners();
-    // Future.delayed(Duration(seconds: 2,)).whenComplete((){
-    //   isLoading = false;
-    //   notifyListeners();
-    // });
   }
 
   int selectedItem = -1;
